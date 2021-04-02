@@ -1,0 +1,21 @@
+[[providers]]
+name = "alltheplaces"
+type = "gpkg"
+filepath = "/data/output.gpkg"
+
+[[providers.layers]]
+name = "alltheplaces"
+sql = """
+    SELECT *
+    FROM output
+    JOIN rtree_output_geom si ON output.fid = si.id
+    WHERE !BBOX!
+    LIMIT 100
+"""
+
+[[maps]]
+name = "alltheplaces"
+center = [-80.0, 40.44, 16.0]
+
+[[maps.layers]]
+provider_layer = "alltheplaces.alltheplaces"
