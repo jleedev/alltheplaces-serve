@@ -3,7 +3,7 @@ FROM debian:bullseye-slim AS builder
 RUN apt-get update && \
 	apt-get -y --no-install-recommends install \
 		gdal-bin python3-bs4 python3-requests && \
-	apt-get clean
+	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build/
 COPY update.py /build/
