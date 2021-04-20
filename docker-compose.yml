@@ -1,6 +1,7 @@
 tegola:
-  image: gospatial/tegola
-  command: serve --config /data/config.toml
-  volumes: [ .:/data ]
+  build: .
+  #image: gospatial/tegola
+  #command: serve --config /data/config.toml
+  #volumes: [ .:/data ]
   ports: [ '127.0.0.1:8080:8080' ]
 

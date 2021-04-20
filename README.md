@@ -12,8 +12,15 @@ gcloud run deploy --platform managed alltheplaces --image gcr.io/$PROJECT/allthe
 Or build and run with
 
 ```
-python3 update.py > output.geojson
-ogr2ogr output.gpkg output.geojson
+docker-compose build
 docker-compose up
 ```
 
+Optionally run behind a frontend proxy by adding
+
+```
+[webserver]
+uri_prefix = "/tegola"
+```
+
+at the top of config.toml.

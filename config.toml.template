@@ -16,7 +16,7 @@ sql = """
 [[maps]]
 name = "alltheplaces"
 center = [-80.0, 40.44, 16.0]
-attribution = All The Places {attribution}
+attribution = "All The Places {attribution}"
 
 [[maps.layers]]
 provider_layer = "alltheplaces.alltheplaces"

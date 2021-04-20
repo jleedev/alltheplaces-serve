@@ -28,7 +28,7 @@ def fetch_output():
     output_url = soup.find('a')['href']
     logging.info(f'{output_url=}')
 
-    run_id = Path(urllib.parse.urlparse(output_url).path).parts[-1]
+    run_id = Path(urllib.parse.urlparse(output_url).path).parts[-2]
 
     r = session.get(output_url, stream=True)
     r.raise_for_status()
