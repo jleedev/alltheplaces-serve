@@ -15,6 +15,8 @@ logging.info('starting up')
 latest_embed = 'https://data.alltheplaces.xyz/runs/latest/info_embed.html'
 
 output_path = Path('output.tar.gz')
+config_toml_template = Path('config.toml.template')
+config_toml = Path('config.toml')
 
 def fetch_output():
     logging.info('fetching %s', latest_embed)
@@ -26,10 +28,14 @@ def fetch_output():
     output_url = soup.find('a')['href']
     logging.info(f'{output_url=}')
 
+    run_id = Path(urllib.parse.urlparse(output_url).path).parts[-1]
+
     r = session.get(output_url, stream=True)
     r.raise_for_status()
     with open('output.tar.gz', 'wb') as f:
         shutil.copyfileobj(r.raw, f)
+
+    return run_id
 
 def extract(path):
     logging.info('extracting from %s', path)
@@ -48,8 +54,9 @@ def extract(path):
             logging.error('invalid json')
         yield from j['features']
 
-if not output_path.is_file():
-    fetch_output()
+run_id = fetch_output()
+config_toml.write_text(
+        config_toml_template.read_text().format(attribution=run_id))
 
 for feature in extract(output_path):
     if "geometry" not in feature:

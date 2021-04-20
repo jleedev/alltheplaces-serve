@@ -6,14 +6,13 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build/
-COPY update.py /build/
+COPY update.py config.toml.template /build/
 RUN python3 update.py > output.geojson
 RUN ogr2ogr output.gpkg output.geojson
 
 FROM gospatial/tegola
 WORKDIR /data/
-COPY --from=builder /build/output.gpkg /data/
-COPY config.toml /data/
+COPY --from=builder /build/output.gpkg /build/config.toml /data/
 
 ENV PORT 8080
 ENTRYPOINT []
