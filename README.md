@@ -24,3 +24,5 @@ uri_prefix = "/tegola"
 ```
 
 at the top of config.toml.
+
+Available at https://alltheplaces-x5m3uj6fcq-uc.a.run.app/capabilities
