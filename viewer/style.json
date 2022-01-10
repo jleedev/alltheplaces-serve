@@ -2,7 +2,7 @@
   "version": 8,
   "sources": {
     "alltheplaces": {
-      "url": "https://twister.43foldrs.com/services/output",
+      "url": "https://alltheplaces-x5m3uj6fcq-uc.a.run.app/services/output",
       "type": "vector"
     },
     "raster-tiles": {

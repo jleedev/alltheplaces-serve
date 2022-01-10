@@ -16,9 +16,5 @@ RUN <output.geojsons tippecanoe -o output.mbtiles \
 	-aC -r1 -z10 -A "All The Places $(cat run_id.txt)"
 
 FROM consbio/mbtileserver
-WORKDIR /app/
-COPY --from=builder /build/output.mbtiles ./tilesets/
-
-ENV PORT 8000
-CMD mbtileserver -p "$PORT"
+COPY --from=builder /build/output.mbtiles /tilesets/
 
