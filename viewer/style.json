@@ -32,12 +32,16 @@
         "circle-radius": [
           "max",
           [
-            "number",
+            "min",
             [
-              "get",
-              "sqrt_point_count"
+              "number",
+              [
+                "get",
+                "sqrt_point_count"
+              ],
+              1
             ],
-            1
+            10
           ],
           6
         ],
