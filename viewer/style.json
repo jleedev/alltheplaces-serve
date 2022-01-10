@@ -1,5 +1,6 @@
 {
   "version": 8,
+  "glyphs": "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   "sources": {
     "alltheplaces": {
       "url": "https://alltheplaces-x5m3uj6fcq-uc.a.run.app/services/output",
@@ -58,6 +59,18 @@
           "rgba(128,0,255,0.3)",
           "rgba(255,128,0,0.3)"
         ]
+      }
+    },
+    {
+      "id": "output-text",
+      "type": "symbol",
+      "source": "alltheplaces",
+      "source-layer": "output",
+      "minzoom": 10,
+      "layout": {
+        "text-field": ["get", "@spider"],
+        "text-font": ["Metropolis Regular"],
+        "text-size": 10
       }
     }
   ]
