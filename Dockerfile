@@ -1,20 +1,24 @@
-FROM debian:bullseye-slim AS builder
+FROM gcr.io/asdf-f6040/tippecanoe AS tippecanoe
+
+FROM debian:stable-slim AS builder
+
+COPY --from=tippecanoe /usr/local/bin/* /usr/local/bin/
 
 RUN apt-get update && \
 	apt-get -y --no-install-recommends install \
-		gdal-bin python3-bs4 python3-requests && \
+		python3-bs4 python3-requests && \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build/
-COPY update.py config.toml.template /build/
-RUN python3 update.py > output.geojson
-RUN ogr2ogr output.gpkg output.geojson
+COPY update.py /build/
+RUN >output.geojsons python3 update.py
+RUN <output.geojsons tippecanoe -o output.mbtiles \
+	-aC -r1 -z10 -A "All The Places $(cat run_id.txt)"
 
-FROM gospatial/tegola
-WORKDIR /data/
-COPY --from=builder /build/output.gpkg /build/config.toml /data/
+FROM consbio/mbtileserver
+WORKDIR /app/
+COPY --from=builder /build/output.mbtiles ./tilesets/
 
-ENV PORT 8080
-ENTRYPOINT []
-CMD /opt/tegola serve --config /data/config.toml --port ":$PORT"
+ENV PORT 8000
+CMD mbtileserver -p "$PORT"
 

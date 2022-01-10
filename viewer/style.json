@@ -1,0 +1,60 @@
+{
+  "version": 8,
+  "sources": {
+    "alltheplaces": {
+      "url": "https://twister.43foldrs.com/services/output",
+      "type": "vector"
+    },
+    "raster-tiles": {
+      "type": "raster",
+      "tiles": [
+        "https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+        "https://cartodb-basemaps-b.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+        "https://cartodb-basemaps-c.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+        "https://cartodb-basemaps-d.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256,
+      "attribution": "Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL."
+    }
+  },
+  "layers": [
+    {
+      "id": "tiles",
+      "type": "raster",
+      "source": "raster-tiles"
+    },
+    {
+      "id": "output",
+      "type": "circle",
+      "source": "alltheplaces",
+      "source-layer": "output",
+      "paint": {
+        "circle-radius": [
+          "max",
+          [
+            "number",
+            [
+              "get",
+              "sqrt_point_count"
+            ],
+            1
+          ],
+          6
+        ],
+        "circle-color": [
+          "case",
+          [
+            "boolean",
+            [
+              "get",
+              "clustered"
+            ],
+            false
+          ],
+          "rgba(128,0,255,0.3)",
+          "rgba(255,128,0,0.3)"
+        ]
+      }
+    }
+  ]
+}
