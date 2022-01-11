@@ -13,7 +13,7 @@ WORKDIR /build/
 COPY update.py /build/
 RUN >output.geojsons python3 update.py
 RUN <output.geojsons tippecanoe -o output.mbtiles \
-	-aC -r1 -z10 -A "All The Places $(cat run_id.txt)"
+	-aC -r1 -z10 -A "$(cat run_id.txt)"
 
 FROM consbio/mbtileserver
 COPY --from=builder /build/output.mbtiles /tilesets/
