@@ -28,7 +28,7 @@ def fetch_output():
     logging.info(f'{output_url=}')
 
     run_id = Path(urllib.parse.urlparse(output_url).path).parts[-2]
-    run_id_path.write_text('<a href="https://www.alltheplaces.xyz/">All The Places</a> {run_id}')
+    run_id_path.write_text(f'<a href="https://www.alltheplaces.xyz/">All The Places</a> {run_id}')
 
     r = session.get(output_url, stream=True)
     r.raise_for_status()
