@@ -1,10 +1,10 @@
-export const map = window.map = new maplibregl.Map({
+export const map = (window.map = new maplibregl.Map({
   container: "map",
-  style: './style.json',
+  style: "./style.json",
   center: [0, 0],
   zoom: 1,
   hash: true,
-});
+}));
 map.addControl(new maplibregl.ScaleControl());
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
@@ -54,7 +54,7 @@ map.on("mouseleave", "output", function () {
 });
 
 function renderFeature(feature) {
-  const [x, y] = feature.geometry.coordinates.map(p => +p.toFixed(6));
+  const [x, y] = feature.geometry.coordinates.map((p) => +p.toFixed(6));
   const props = Object.entries(feature.properties);
   props.sort((a, b) => a[0].localeCompare(b[0]));
   const e = document.createElement("pre");
@@ -62,4 +62,3 @@ function renderFeature(feature) {
   e.append(props.map((x) => x.join("=")).join("\n"));
   return e;
 }
-
