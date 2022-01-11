@@ -31,20 +31,28 @@
       "source-layer": "output",
       "paint": {
         "circle-radius": [
-          "max",
+          "interpolate",
+          ["exponential", 2],
+          ["zoom"],
+          10,
           [
-            "min",
+            "max",
             [
-              "number",
+              "min",
               [
-                "get",
-                "sqrt_point_count"
+                "number",
+                [
+                  "get",
+                  "sqrt_point_count"
+                ],
+                1
               ],
-              1
+              10
             ],
-            10
+            6
           ],
-          6
+          22,
+          50
         ],
         "circle-color": [
           "case",
