@@ -40,14 +40,18 @@
             [
               "min",
               [
-                "number",
+                "*",
                 [
-                  "get",
-                  "sqrt_point_count"
+                  "number",
+                  [
+                    "get",
+                    "sqrt_point_count"
+                  ],
+                  1
                 ],
-                1
+                6
               ],
-              10
+              15
             ],
             6
           ],
