@@ -4,7 +4,6 @@
 
 set -eu
 
-export CLOUDSDK_CORE_PROJECT
 [ -n "$(gcloud config get-value project)" ] || (
   echo "Set project with gcloud config set project, or"
   echo "export CLOUDSDK_CORE_PROJECT=foo-bar-123 >> .env"
