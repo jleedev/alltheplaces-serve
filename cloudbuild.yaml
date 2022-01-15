@@ -4,7 +4,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces']
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['run', 'deploy', '--platform', 'managed', 'helloworld', '--image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces', '--memory', '128Mi', '--region', 'us-central1']
+  args: ['run', 'deploy', '--platform', 'managed', 'alltheplaces', '--image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces', '--memory', '128Mi', '--region', 'us-central1', '--allow-unauthenticated']
 images:
 - 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces'
 timeout: 1800s

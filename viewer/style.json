@@ -3,7 +3,7 @@
   "glyphs": "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   "sources": {
     "alltheplaces": {
-      "url": "https://alltheplaces-x5m3uj6fcq-uc.a.run.app/services/output",
+      "url": "https://alltheplaces-cergsmzmza-uc.a.run.app/services/output",
       "type": "vector"
     },
     "raster-tiles": {
