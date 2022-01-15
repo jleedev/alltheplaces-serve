@@ -1,4 +1,5 @@
-FROM gcr.io/asdf-f6040/tippecanoe AS tippecanoe
+ARG PROJECT_ID
+FROM us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/tippecanoe AS tippecanoe
 
 FROM debian:stable-slim AS builder
 
