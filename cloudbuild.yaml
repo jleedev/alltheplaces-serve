@@ -7,4 +7,4 @@ steps:
   args: ['run', 'deploy', '--platform', 'managed', 'helloworld', '--image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces', '--memory', '128Mi', '--region', 'us-central1']
 images:
 - 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces'
-timeout: 30m
+timeout: 1800s
