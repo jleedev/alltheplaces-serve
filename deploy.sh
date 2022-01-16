@@ -18,7 +18,7 @@ gcloud builds submit
 gcloud artifacts docker images list \
     us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/alltheplaces \
     --format json --include-tags \
-  | jq '.[]|select(.tags=="")|[.package,.version]|join("@")' \
+  | jq -r '.[]|select(.tags=="")|[.package,.version]|join("@")' \
   | while read IMAGE
 do
   gcloud artifacts docker images delete $IMAGE
