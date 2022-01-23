@@ -57,8 +57,37 @@ function renderFeature(feature) {
   const [x, y] = feature.geometry.coordinates.map((p) => +p.toFixed(6));
   const props = Object.entries(feature.properties);
   props.sort((a, b) => a[0].localeCompare(b[0]));
+  const formatValue = (k, v) => {
+    switch (k) {
+      case "website": {
+        const a = document.createElement("a");
+        a.target = "_blank";
+        a.href = a.textContent = v;
+        return a;
+      }
+      case "brand:wikidata": {
+        const a = document.createElement("a");
+        a.target = "_blank";
+        a.href = `https://www.wikidata.org/wiki/${v}`;
+        a.textContent = v;
+        return a;
+      }
+      default:
+        return v;
+    }
+  };
   const e = document.createElement("pre");
-  e.append(`${x},${y}\n`);
-  e.append(props.map((x) => x.join("=")).join("\n"));
+  const coord = document.createElement("a");
+  coord.target = "_blank";
+  coord.href = `https://www.openstreetmap.org/?mlat=${y}&mlon=${x}`;
+  coord.textContent = `${x},${y}`;
+  e.append(coord, "\n");
+  for (let i = 0; i < props.length; i++) {
+    const [k, v] = props[i];
+    e.append(k, "=", formatValue(k, v));
+    if (i + 1 < props.length) {
+      e.append("\n");
+    }
+  }
   return e;
 }
