@@ -16,6 +16,6 @@ RUN >output.geojsons python3 update.py
 RUN <output.geojsons tippecanoe -o output.mbtiles \
 	-aC -r1 -z10 -A "$(cat run_id.txt)"
 
-FROM consbio/mbtileserver
+FROM us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/mbtileserver
 COPY --from=builder /build/output.mbtiles /tilesets/
 
