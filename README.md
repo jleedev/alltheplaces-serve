@@ -22,3 +22,10 @@ This is all done on cloud build, but could easily be shifted elsewhere and pushe
 The firebase and gh-pages steps are trivial pushes without anything you'd call a build.
 
 The cloud build is triggered weekly by a cron on my computer somewhere.
+
+Prerequisite checklist:
+
+1. Enable the necessary APIs in GCP and firebase, create docker repo
+2. Build tippecanoe (they don't maintain a public image) and mbtileserver (using an as yet unreleased version)
+3. Put correct tileJson url in map style
+
