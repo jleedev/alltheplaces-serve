@@ -9,6 +9,7 @@ map.addControl(new maplibregl.ScaleControl());
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 map.touchPitch.disable();
+map.keyboard.disableRotation();
 map.getCanvas().focus();
 
 map.on("click", "output", (e) => {
