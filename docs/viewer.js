@@ -73,6 +73,15 @@ function renderFeature(feature) {
         a.textContent = v;
         return a;
       }
+      case "@spider": {
+        const a = document.createElement("a");
+        a.target = "_blank";
+        const u = new URL("https://github.com/alltheplaces/alltheplaces/search");
+        u.searchParams.set("q", v);
+        a.href = u;
+        a.textContent = v;
+        return a;
+      }
       default:
         return v;
     }
