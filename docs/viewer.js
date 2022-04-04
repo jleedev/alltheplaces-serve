@@ -76,8 +76,10 @@ function renderFeature(feature) {
       case "@spider": {
         const a = document.createElement("a");
         a.target = "_blank";
-        const u = new URL("https://github.com/alltheplaces/alltheplaces/search");
-        u.searchParams.set("q", v);
+        const u = new URL(
+          "https://github.com/alltheplaces/alltheplaces/search"
+        );
+        u.searchParams.set("q", `path:locations/spiders "name=${v}"`);
         a.href = u;
         a.textContent = v;
         return a;
