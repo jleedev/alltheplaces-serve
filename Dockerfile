@@ -13,6 +13,7 @@ RUN apt-get update && \
 WORKDIR /build/
 COPY update.py /build/
 RUN >output.geojsons python3 update.py
+RUN cat run_id.txt
 RUN <output.geojsons tippecanoe -o output.mbtiles \
 	--cluster-densest-as-needed \
 	--drop-rate=1 \
