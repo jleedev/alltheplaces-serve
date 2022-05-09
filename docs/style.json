@@ -89,7 +89,7 @@
       "type": "symbol",
       "source": "alltheplaces",
       "source-layer": "output",
-      "minzoom": 10,
+      "minzoom": 11,
       "layout": {
         "text-field": [
           "get",
