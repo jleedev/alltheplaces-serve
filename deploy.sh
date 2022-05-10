@@ -15,6 +15,8 @@ set -x
 
 gcloud builds submit
 
+[[ ${NO_CLEANUP+x} ]] && exit 1
+
 gcloud artifacts docker images list \
     us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/alltheplaces \
     --format json --include-tags \
