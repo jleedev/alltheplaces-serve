@@ -1,0 +1,22 @@
+steps:
+- name: gcr.io/cloud-builders/git
+  args:
+  - clone
+  - https://github.com/mapbox/tippecanoe
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - ./tippecanoe/
+  - -t
+  - us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/tippecanoe
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - .
+  - -t
+  - us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces-builder
+  - --build-arg
+  - PROJECT_ID=${PROJECT_ID}
+images:
+- us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/tippecanoe
+- us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces-builder

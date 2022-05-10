@@ -26,6 +26,6 @@ The cloud build is triggered weekly by a cron on my computer somewhere.
 Prerequisite checklist:
 
 1. Enable the necessary APIs in GCP and firebase, create docker repo
-2. Build tippecanoe (they don't maintain a public image)
+2. Build the builder image
 3. Put correct tileJson url in map style
 
