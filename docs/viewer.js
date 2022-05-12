@@ -15,7 +15,7 @@ map.getCanvas().focus();
 map.on("click", "output", (e) => {
   const cluster = e.features.find((x) => x.properties.clustered);
   if (cluster) {
-    map.flyTo({
+    map.easeTo({
       center: cluster.geometry.coordinates,
       zoom: 1 + map.getZoom(),
     });
@@ -40,7 +40,7 @@ map.on("click", "output", (e) => {
     popup.once("close", () => map.getCanvas().focus());
 
     const first = e.features[0];
-    map.flyTo({
+    map.easeTo({
       center: first.geometry.coordinates,
     });
   }
