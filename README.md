@@ -28,6 +28,7 @@ Prerequisite checklist:
 
 Once:
 
+0. Fork this repository so as to be able to connect a build trigger
 1. Enable the necessary APIs in GCP and firebase, create docker repo
 2. Build the builder image
 3. Put correct tileJson url in map style
