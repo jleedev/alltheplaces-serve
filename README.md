@@ -22,7 +22,7 @@ This is all done on cloud build, but could easily be shifted elsewhere and pushe
 
 The firebase and gh-pages steps are trivial pushes without anything you'd call a build.
 
-The cloud build is triggered weekly by a cron on my computer somewhere.
+Disclaimer: This readme is mostly written for myself.
 
 Prerequisite checklist:
 
@@ -55,4 +55,9 @@ npx firebase-tools deploy --only hosting
 
 Verify:
 
-Visit /cloudscheduler on cloud console. Find your cloud build scheduler and push RUN NOW. Hop over to /cloud-build and your build should complete in about ten minutes.
+Visit /cloudscheduler on cloud console. Find your cloud build scheduler and push RUN NOW. Scheduled job should turn green immediately.
+Hop over to /cloud-build. Build should turn green in 5-10 minutes.
+Hop over to /artifacts and find digests for your image. New one should appear.
+Hop over to /run and find revision of your service. Image url should be the latest digest.
+Go back to /cloudscheduler and push RUN NOW on gcrclean-alltheplaces. Scheduled job should turn green immediately.
+Go back to /artifacts and see all but latest digest are removed.
