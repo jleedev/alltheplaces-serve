@@ -33,7 +33,7 @@ Once:
 3. Put correct tileJson url in map style
 4. Install and configure gcr-cleaner
 5. Deploy to firebase hosting
-6. Connect github repository to cloud build; create manual trigger; schedule your trigger
+6. Connect github repository to cloud build; create manual trigger; specify value of `_DOCKER_REPO`; schedule your trigger
 
 As needed:
 
@@ -52,3 +52,6 @@ Deploy to firebase:
 npx firebase-tools deploy --only hosting
 ```
 
+Verify:
+
+Visit /cloudscheduler on cloud console. Find your cloud build scheduler and push RUN NOW. Hop over to /cloud-build and your build should complete in about ten minutes.

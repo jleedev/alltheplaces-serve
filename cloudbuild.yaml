@@ -1,4 +1,11 @@
 steps:
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: bash
+  args:
+  - -c
+  - |
+    [[ ${LOCATION} != global ]] || (echo need LOCATION != global; exit 1)
+    [[ -n ${_DOCKER_REPO} ]] || (echo need _DOCKER_REPO; exit 1)
 - name: gcr.io/cloud-builders/docker
   timeout: 900s
   args:
