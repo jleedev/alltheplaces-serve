@@ -9,6 +9,7 @@ This has three moving parts:
 1. Backend on cloud run
 2. CDN on firebase hosting
 3. Frontend on github pages
+4. Scheduled artifact registry cleanup
 
 The build process:
 
@@ -25,7 +26,29 @@ The cloud build is triggered weekly by a cron on my computer somewhere.
 
 Prerequisite checklist:
 
+Once:
+
 1. Enable the necessary APIs in GCP and firebase, create docker repo
 2. Build the builder image
 3. Put correct tileJson url in map style
+4. Install and configure gcr-cleaner
+5. Deploy to firebase hosting
+6. Connect github repository to cloud build; create manual trigger; schedule your trigger
+
+As needed:
+
+1. Push static content to github pages
+
+Scheduled tasks:
+
+1. Build and deploy new data server
+2. Delete old versions of data server from artifact registry
+
+Deploy to firebase:
+
+```
+>.firebaserc jq --arg PROJECT_ID "$(gcloud config get project)" \
+  -n '.projects.default=$PROJECT_ID'
+npx firebase-tools deploy --only hosting
+```
 
