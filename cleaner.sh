@@ -33,7 +33,8 @@ gcloud run deploy gcr-cleaner \
   --image us-docker.pkg.dev/gcr-cleaner/gcr-cleaner/gcr-cleaner \
   --timeout 60s
 
-gcloud artifacts repositories add-iam-policy-binding my-docker-repo \
+gcloud artifacts repositories add-iam-policy-binding \
+  $(gcloud config get artifacts/repository) \
   --member serviceAccount:gcr-cleaner@${PROJECT_ID}.iam.gserviceaccount.com \
   --role roles/artifactregistry.repoAdmin
 
