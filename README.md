@@ -33,7 +33,8 @@ Once:
 3. Put correct tileJson url in map style
 4. Install and configure gcr-cleaner
 5. Deploy to firebase hosting
-6. Connect github repository to cloud build; create manual trigger; specify value of `_DOCKER_REPO`; schedule your trigger
+6. Connect github repository to cloud build; create manual trigger
+7. Schedule your trigger for "0 8 * * Sun" UTC.
 
 As needed:
 

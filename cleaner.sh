@@ -2,6 +2,7 @@
 
 # Run this script once to install a cloud scheduler job to remove old versions
 # of the data server.
+# Schedule for "0 */12 * * *" which is twice daily UTC
 
 # Describe .env here
 #

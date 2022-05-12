@@ -1,8 +1,5 @@
-ARG PROJECT_ID
-ARG LOCATION
-ARG _DOCKER_REPO
-
-FROM ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_DOCKER_REPO}/alltheplaces-builder AS builder
+ARG BUILDER_IMAGE
+FROM ${BUILDER_IMAGE} AS builder
 
 WORKDIR /build/
 COPY update.py /build/

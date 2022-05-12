@@ -1,24 +1,17 @@
 steps:
-- name: gcr.io/cloud-builders/gcloud
-  entrypoint: bash
-  args:
-  - -c
-  - |
-    [[ ${LOCATION} != global ]] || (echo need LOCATION != global; exit 1)
-    [[ -n ${_DOCKER_REPO} ]] || (echo need _DOCKER_REPO; exit 1)
 - name: gcr.io/cloud-builders/docker
   timeout: 900s
   args:
   - build
   - .
   - -t
-  - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces
+  - ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
   - --build-arg
-  - PROJECT_ID=${PROJECT_ID}
+  - BUILDER_IMAGE=${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces-builder
 - name: gcr.io/cloud-builders/docker
   args:
   - push
-  - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces
+  - ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
 - name: gcr.io/cloud-builders/gcloud
   args:
   - run
@@ -28,13 +21,17 @@ steps:
   - --platform
   - managed
   - --image
-  - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces
+  - ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
   - --memory
   - 128Mi
   - --region
-  - ${LOCATION}
+  - ${_RUN_REGION}
 images:
-- ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces
+- ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
 timeout: 1800s
+substitutions:
+  _ARTIFACTS_LOCATION: us-central1
+  _ARTIFACTS_REPOSITORY: my-docker-repo
+  _RUN_REGION: us-central1
 options:
   machineType: E2_HIGHCPU_8
