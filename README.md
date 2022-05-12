@@ -61,3 +61,12 @@ Hop over to /artifacts and find digests for your image. New one should appear.
 Hop over to /run and find revision of your service. Image url should be the latest digest.
 Go back to /cloudscheduler and push RUN NOW on gcrclean-alltheplaces. Scheduled job should turn green immediately.
 Go back to /artifacts and see all but latest digest are removed.
+
+Long term:
+
+Main costs to monitor are:
+
+- Cloud storage bucket - extremely low, 0.1 GB-month
+- Cloud run seconds - extremely low thanks to firebase hosting
+- Cloud build minutes - about $0.10 per weekly build
+- Firebase bandwidth - unknown as of yet
