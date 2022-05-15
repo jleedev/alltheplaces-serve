@@ -7,7 +7,7 @@ RUN >output.geojsons python3 update.py
 RUN cat run_id.txt
 RUN tippecanoe \
 	-o output.mbtiles \
-	--layer output \
+	--layer alltheplaces \
 	--cluster-densest-as-needed \
 	--drop-rate=1 \
 	--maximum-zoom=11 \
