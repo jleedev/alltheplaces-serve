@@ -28,7 +28,7 @@
       "id": "output",
       "type": "circle",
       "source": "alltheplaces",
-      "source-layer": "output",
+      "source-layer": "alltheplaces",
       "paint": {
         "circle-radius": [
           "interpolate",
@@ -77,7 +77,7 @@
       "id": "output-text",
       "type": "symbol",
       "source": "alltheplaces",
-      "source-layer": "output",
+      "source-layer": "alltheplaces",
       "minzoom": 11,
       "layout": {
         "text-field": [
