@@ -26,6 +26,11 @@ steps:
   - 128Mi
   - --region
   - ${_RUN_REGION}
+- name: gcr.io/${PROJECT_ID}/firebase
+  args:
+  - deploy
+  - --project=${PROJECT_ID}
+  - --only=hosting
 images:
 - ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
 timeout: 1800s

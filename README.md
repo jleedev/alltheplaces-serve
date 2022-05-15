@@ -36,6 +36,7 @@ Once:
 5. Deploy to firebase hosting
 6. Connect github repository to cloud build; create manual trigger
 7. Schedule your trigger for "0 8 * * Sun" UTC.
+8. Build the firebase builder: https://cloud.google.com/build/docs/deploying-builds/deploy-firebase
 
 As needed:
 
