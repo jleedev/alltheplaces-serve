@@ -23,7 +23,7 @@ steps:
   - --image
   - ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
   - --memory
-  - 128Mi
+  - 512Mi
   - --region
   - ${_RUN_REGION}
 - name: gcr.io/${PROJECT_ID}/firebase
