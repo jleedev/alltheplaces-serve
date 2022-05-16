@@ -20,7 +20,7 @@ The build process:
 
 This is all done on cloud build, but could easily be shifted elsewhere and pushed to artifact registry, which is all cloud run requires.
 
-The firebase and gh-pages steps are trivial pushes without anything you'd call a build.
+The firebase and gh-pages steps are trivial pushes without anything you'd call a build, although the firebase deploy is scheduled in order to clear the CDN cache.
 
 Disclaimer: This readme is mostly written for myself.
 
