@@ -38,6 +38,14 @@ Once:
 7. Schedule your trigger for "0 8 * * Sun" UTC.
 8. Build the firebase builder: https://cloud.google.com/build/docs/deploying-builds/deploy-firebase
 
+Authorize cloud build to deploy to firebase
+
+```
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+  --role=roles/firebasehosting.admin 
+```
+
 As needed:
 
 1. Push static content to github pages
