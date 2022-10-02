@@ -35,7 +35,7 @@ Once:
 4. Install and configure gcr-cleaner
 5. Deploy to firebase hosting
 6. Connect github repository to cloud build; create manual trigger
-7. Schedule your trigger for "0 8 * * Sun" UTC.
+7. Schedule your trigger for "0 16 * * Sun" UTC.
 8. Build the firebase builder: https://cloud.google.com/build/docs/deploying-builds/deploy-firebase
 
 Authorize cloud build to deploy to firebase
@@ -66,7 +66,7 @@ npx firebase-tools deploy --only hosting
 Verify:
 
 - Visit /cloudscheduler on cloud console. Find your cloud build scheduler and push RUN NOW. Scheduled job should turn green immediately.
-- Hop over to /cloud-build. Build should turn green in 5-10 minutes.
+- Hop over to /cloud-build. Build should turn green in 8-12 minutes.
 - Hop over to /artifacts and find digests for your image. New one should appear.
 - Hop over to /run and find revision of your service. Image url should be the latest digest.
 - Go back to /cloudscheduler and push RUN NOW on gcrclean-alltheplaces. Scheduled job should turn green immediately.
