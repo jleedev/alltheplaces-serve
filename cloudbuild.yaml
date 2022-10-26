@@ -8,7 +8,7 @@ steps:
   args: [run, deploy, alltheplaces, --allow-unauthenticated,
     --platform, managed, --image, '${_IMAGE_NAME}', --memory, 512Mi,
     --region, '${_RUN_REGION}']
-- name: gcr.io/${PROJECT_ID}/firebase
+- name: ${_FIREBASE_BUILDER_IMAGE}
   args: [deploy, --project, '${PROJECT_ID}', --only=hosting]
 images:
 - ${_IMAGE_NAME}
@@ -19,6 +19,7 @@ substitutions:
   _RUN_REGION: us-central1
   _IMAGE_NAME: ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces
   _BUILDER_IMAGE: ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/alltheplaces-builder
+  _FIREBASE_BUILDER_IMAGE: ${_ARTIFACTS_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACTS_REPOSITORY}/firebase
 options:
   dynamic_substitutions: true
   machineType: E2_HIGHCPU_8
