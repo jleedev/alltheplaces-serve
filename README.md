@@ -30,7 +30,7 @@ Once:
 
 0. Fork this repository so as to be able to connect a build trigger
 1. Enable the necessary APIs in GCP and firebase, create docker repo
-2. Build the builder image
+2. Build the builder image (this build depends on the tippecanoe image, mainly because that is a CI image for testing, not optimized for deployment)
 3. Put correct tileJson url in map style
 4. Install and configure gcr-cleaner
 5. Deploy to firebase hosting
