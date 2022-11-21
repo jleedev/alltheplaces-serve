@@ -3,7 +3,8 @@ import logging
 from pathlib import Path, PurePath
 import shutil
 import tarfile
-import urllib.parse
+from urllib.parse import urlsplit
+import zipfile
 
 from parsel.selector import Selector
 import requests
@@ -28,7 +29,7 @@ def fetch_output():
     output_url = sel.xpath("//a/@href").get()
     logging.info(f"{output_url=}")
 
-    path = PurePath(urllib.parse.urlsplit(output_url).path)
+    path = PurePath(urlsplit(output_url).path)
     run_id = path.parts[-2]
     run_id_path.write_text(
         f'<a href="https://www.alltheplaces.xyz/">All The Places</a> {run_id}'
@@ -82,9 +83,9 @@ def open_tarball(path):
 
 
 def open_zipfile(path):
-    with zipfile.open(path) as z:
+    with zipfile.ZipFile(path) as z:
         for info in z.infolist():
-            if z.is_dir():
+            if info.is_dir():
                 continue
             logging.info("process %s", info.filename)
             if not info.filename.endswith(".geojson"):
