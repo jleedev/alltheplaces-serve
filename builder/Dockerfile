@@ -7,6 +7,6 @@ COPY --from=tippecanoe /usr/local/bin/* /usr/local/bin/
 
 RUN apt-get update && \
         apt-get -y --no-install-recommends install \
-                python3-bs4 python3-requests && \
+                python3-parsel python3-requests && \
         rm -rf /var/lib/apt/lists/*
 
