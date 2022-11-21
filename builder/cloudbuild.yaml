@@ -6,7 +6,7 @@ steps:
   args: ["build", ".", "-t", "us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/tippecanoe"]
 - name: gcr.io/cloud-builders/docker
   dir: builder
-  args: ["build", ".", "-t", "us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces-builder", "--build-arg", "PROJECT_ID"]
+  args: ["build", ".", "-t", "us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces-builder", "--build-arg", "PROJECT_ID=${PROJECT_ID}"]
 images:
 - us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/tippecanoe
 - us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/alltheplaces-builder
