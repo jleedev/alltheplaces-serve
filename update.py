@@ -8,98 +8,109 @@ import urllib.parse
 from parsel.selector import Selector
 import requests
 
-logging.basicConfig(format='%(asctime)s %(message)s')
+logging.basicConfig(format="%(asctime)s %(message)s")
 logging.getLogger().setLevel(logging.DEBUG)
-logging.info('starting up')
+logging.info("starting up")
 
-latest_embed = 'https://data.alltheplaces.xyz/runs/latest/info_embed.html'
+latest_embed = "https://data.alltheplaces.xyz/runs/latest/info_embed.html"
 
-possible_output_path = [Path('output.tar.gz', Path('output.zip')]
-run_id_path = Path('run_id.txt')
+possible_output_path = [Path("output.tar.gz"), Path("output.zip")]
+run_id_path = Path("run_id.txt")
+
 
 def fetch_output():
-    logging.info('fetching %s', latest_embed)
+    logging.info("fetching %s", latest_embed)
     session = requests.Session()
     r = session.get(latest_embed)
     r.raise_for_status()
     sel = Selector(text=r.text)
 
-    output_url = sel.xpath('//a/@href').get()
-    logging.info(f'{output_url=}')
+    output_url = sel.xpath("//a/@href").get()
+    logging.info(f"{output_url=}")
 
-    path = PurePath(urllib.parse.urlsplit(output_url).path).parts[-2]
+    path = PurePath(urllib.parse.urlsplit(output_url).path)
     run_id = path.parts[-2]
-    run_id_path.write_text(f'<a href="https://www.alltheplaces.xyz/">All The Places</a> {run_id}')
+    run_id_path.write_text(
+        f'<a href="https://www.alltheplaces.xyz/">All The Places</a> {run_id}'
+    )
 
     r = session.get(output_url, stream=True)
     r.raise_for_status()
     output_path = Path(path.parts[-1])
     assert output_path in possible_output_path
-    with output_path.open('wb') as f:
+    with output_path.open("wb") as f:
         shutil.copyfileobj(r.raw, f)
     return output_path
 
+
 def extract(path):
-    logging.info('extracting from %s', path)
-    if path == Path('output.tar.gz'):
+    logging.info("extracting from %s", path)
+    if path == Path("output.tar.gz"):
         it = open_tarball(path)
-    elif path == Path('output.zip'):
+    elif path == Path("output.zip"):
         it = open_zipfile(path)
     else:
         raise ValueError(path)
     for r in it:
         try:
             j = json.load(r)
-            yield from j['features']
+            yield from j["features"]
         except json.decoder.JSONDecodeError as e:
-            logging.error('invalid json')
+            logging.error("invalid json")
 
-if not any(p.is_file() for p in possible_output_path):
+
+for p in possible_output_path:
+    if p.is_file():
+        logging.info("have %s", p)
+        output_path = p
+        break
+else:
     output_path = fetch_output()
+
 
 def open_tarball(path):
     with tarfile.open(path) as t:
         for entry in t:
-            logging.info('process %s', entry.path)
-            if not entry.path.endswith('.geojson'):
-                logging.info('ignore')
+            logging.info("process %s", entry.path)
+            if not entry.path.endswith(".geojson"):
+                logging.info("ignore")
                 continue
             if entry.size == 0:
-                logging.info('empty file')
+                logging.info("empty file")
                 continue
             yield t.extractfile(entry)
+
 
 def open_zipfile(path):
     with zipfile.open(path) as z:
         for info in z.infolist():
             if z.is_dir():
                 continue
-            logging.info('process %s', info.filename)
-            if not info.filename.endswith('.geojson'):
-                logging.info('ignore')
+            logging.info("process %s", info.filename)
+            if not info.filename.endswith(".geojson"):
+                logging.info("ignore")
                 continue
             if info.file_size == 0:
-                logging.info('empty file')
+                logging.info("empty file")
                 continue
             yield z.open(info)
 
+
 for feature in extract(output_path):
     if "geometry" not in feature:
-        logging.error('no geometry')
+        logging.error("no geometry")
         continue
     [longitude, latitude] = feature["geometry"]["coordinates"]
     if [latitude, longitude] == [0, 0]:
-        logging.error('null island')
+        logging.error("null island")
         continue
     if not -85.05112878 < latitude < 85.05112878:
-        logging.error('latitude out of range')
+        logging.error("latitude out of range")
         continue
     if not -180 < longitude < 180:
-        logging.error('longitude out of range')
+        logging.error("longitude out of range")
         continue
     print(json.dumps(feature))
 
 
-logging.info('done')
-
-
+logging.info("done")
