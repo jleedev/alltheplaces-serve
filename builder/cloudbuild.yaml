@@ -1,8 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/git
-  args:
-  - clone
-  - https://github.com/mapbox/tippecanoe
+  args: ["clone", "https://github.com/mapbox/tippecanoe"]
 - name: gcr.io/cloud-builders/docker
   dir: tippecanoe
   args: ["build", ".", "-t", "us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/tippecanoe"]
