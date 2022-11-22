@@ -60,15 +60,6 @@ def extract(path):
             logging.error("invalid json")
 
 
-for p in possible_output_path:
-    if p.is_file():
-        logging.info("have %s", p)
-        output_path = p
-        break
-else:
-    output_path = fetch_output()
-
-
 def open_tarball(path):
     with tarfile.open(path) as t:
         for entry in t:
@@ -95,6 +86,15 @@ def open_zipfile(path):
                 logging.info("empty file")
                 continue
             yield z.open(info)
+
+
+for p in possible_output_path:
+    if p.is_file():
+        logging.info("have %s", p)
+        output_path = p
+        break
+else:
+    output_path = fetch_output()
 
 
 for feature in extract(output_path):
