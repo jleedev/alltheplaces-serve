@@ -19,7 +19,7 @@ run_id_path = Path("run_id.txt")
 
 
 def fetch_output():
-    logging.info("fetching %s", latest_embed)
+    logging.info("fetching %s", latest_url)
     session = requests.Session()
     r = session.get(latest_url)
     r.raise_for_status()
