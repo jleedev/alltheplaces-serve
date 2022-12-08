@@ -6,14 +6,13 @@ import tarfile
 from urllib.parse import urlsplit
 import zipfile
 
-from parsel.selector import Selector
 import requests
 
 logging.basicConfig(format="%(asctime)s %(message)s")
 logging.getLogger().setLevel(logging.DEBUG)
 logging.info("starting up")
 
-latest_embed = "https://data.alltheplaces.xyz/runs/latest/info_embed.html"
+latest_url = "https://data.alltheplaces.xyz/runs/latest.json"
 
 possible_output_path = [Path("output.tar.gz"), Path("output.zip")]
 run_id_path = Path("run_id.txt")
@@ -22,11 +21,10 @@ run_id_path = Path("run_id.txt")
 def fetch_output():
     logging.info("fetching %s", latest_embed)
     session = requests.Session()
-    r = session.get(latest_embed)
+    r = session.get(latest_url)
     r.raise_for_status()
-    sel = Selector(text=r.text)
 
-    output_url = sel.xpath("//a/@href").get()
+    output_url = r.json()["output_url"]
     logging.info(f"{output_url=}")
 
     path = PurePath(urlsplit(output_url).path)

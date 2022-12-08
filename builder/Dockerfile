@@ -6,7 +6,6 @@ FROM debian:stable-slim AS builder
 COPY --from=tippecanoe /usr/local/bin/* /usr/local/bin/
 
 RUN apt-get update && \
-        apt-get -y --no-install-recommends install \
-                python3-parsel python3-requests && \
+        apt-get -y --no-install-recommends install python3-requests && \
         rm -rf /var/lib/apt/lists/*
 
