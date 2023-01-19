@@ -96,20 +96,25 @@ else:
 
 
 for feature in extract(output_path):
-    if "geometry" not in feature:
+    geometry = feature.get("geometry")
+    if geometry is None:
         logging.error("no geometry")
         continue
-    [longitude, latitude] = feature["geometry"]["coordinates"]
-    if [latitude, longitude] == [0, 0]:
-        logging.error("null island")
-        continue
-    if not -85.05112878 < latitude < 85.05112878:
-        logging.error("latitude out of range")
-        continue
-    if not -180 < longitude < 180:
-        logging.error("longitude out of range")
-        continue
-    print(json.dumps(feature))
+    if geometry["type"] == "Point":
+        [longitude, latitude] = feature["geometry"]["coordinates"]
+        if [latitude, longitude] == [0, 0]:
+            logging.error("null island")
+            continue
+        if not -85.05112878 < latitude < 85.05112878:
+            logging.error("latitude out of range")
+            continue
+        if not -180 < longitude < 180:
+            logging.error("longitude out of range")
+            continue
+    else:
+        # Assume these are ok?
+        pass
+    print(json.dumps(feature, separators=(",", ":")))
 
 
 logging.info("done")
