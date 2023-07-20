@@ -1,6 +1,14 @@
 steps:
-- name: gcr.io/cloud-builders/git
-  args: ["clone", "https://github.com/mapbox/tippecanoe"]
+- name: python
+  script: |
+    #!/bin/python3
+    import json,urllib.request,shutil;from pathlib import Path
+    api = "https://api.github.com/repos/felt/tippecanoe/releases/latest"
+    release = json.load(urllib.request.urlopen(api))
+    tarball = urllib.request.urlretrieve(release["tarball_url"])
+    shutil.unpack_archive(tarball[0], format="gztar")
+    [result] = Path().glob("felt-tippecanoe-*")
+    result = result.rename("tippecanoe")
 - name: gcr.io/cloud-builders/docker
   dir: tippecanoe
   args: ["build", ".", "-t", "us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/tippecanoe"]
