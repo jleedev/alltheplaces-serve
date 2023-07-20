@@ -114,7 +114,8 @@ for feature in extract(output_path):
     else:
         # Assume these are ok?
         pass
-    print(json.dumps(feature, separators=(",", ":")))
+    record = json.dumps(feature, separators=(",", ":"))
+    print('\36', record, end='\n', sep='')
 
 
 logging.info("done")
